@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="weather">
+
+        <div class="back">
+            <div class="nav" id="nav1">
+                <i class="i1 fa-sharp fa-solid fa-location-dot"></i>
+                <h2 id="cityname"></h2>
+                <i id="i2" class="i2 fa-solid fa-bars"></i>
+            </div>
+            <div class="img" id="img1">
+                <img id="img" src="" alt="">
+                <h2 id="temp"></h2>
+                <p id="cloud">Cloud</p>
+            </div>
+            <div class="week">
+                <div class="thursday">
+                    <h2>Thursday</h2>
+                    <p>20°/12°</p>
+                </div>
+                <div class="wednesday">
+                    <h2>Wednesday</h2>
+                    <p>18°/11°</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="search">
+        <input id="input" placeholder="City" type="text">
+        <button id="button">Search</button>
+
+    </div>
+
+
+    <script>
+
+        let key = `81edb87a137e56e5ee2ea6c4443843a7`;
+        let city=document.querySelector("#input")
+        // let city
+        let cityname = document.querySelector("#cityname");
+        let h3 = document.createElement("h2");
+        let i2 = document.querySelector("#i2");
+        let temp = document.querySelector("#temp");
+        let cloud = document.querySelector("cloud");
+        let input = document.querySelector("#input");
+        let button = document.querySelector("#button");
+        button.addEventListener("click", () => {
+            let url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=${key}&units=metric`;
+            fetch(url)
+                .then((resp) => resp.json())
+                .then((data) => {
+                    console.log(data);
+                    cityname.innerHTML = data.name
+                    temp.innerHTML = data.main.temp
+                    img.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}.png`;
+                    document.body.appendChild(cityname)
+                    nav1.appendChild(cityname)
+                    nav1.appendChild(i2)
+                        img1.appendChild(temp)
+
+                        console.log(data);
+                })
+                .catch(() => {
+                    console.log(Error);
+                })
+        })
+    </script>
+</body>
+
+</html>
